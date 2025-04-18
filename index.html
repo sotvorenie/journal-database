@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>тест</title>
+</head>
+<body>
+
+
+<script>
+
+  const setStudent = async () => {
+    try {
+      const url = 'http://skf_magazine.host1877423.hostland.pro/students/createStudent.php';
+      const headers = {
+        'Content-Type': 'application/json'
+      }
+      const body = {
+        user_id: 1,
+        group_id: 1,
+        "name": 'Славян',
+        second_name: 'Курганов',
+        surname: 'Игоревич',
+        birthday: '07072003'
+      }
+      await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers
+      }).then(response => {
+        if (response.ok && response.name !== '') {
+          return response.json();
+        } else {
+          throw new Error('что-то пошло не так..');
+        }
+      })
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const getStudents = async () => {
+    try {
+        const user_id = 1;
+        const group_id = 1;
+        const offset = 0;
+        const limit = 2;
+        const url = `http://skf_magazine.host1877423.hostland.pro/students/getStudents.php?
+        user_id=${user_id}&group_id=${group_id}&offset=${offset}&limit=${limit}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(await data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  const deleteStudent = async () => {
+      try {
+          const url = 'http://skf_magazine.host1877423.hostland.pro/students/deleteStudent.php';
+          const headers = {
+              'Content-Type': 'application/json'
+          }
+          await fetch(url, {
+              headers,
+              method: 'DELETE',
+              body: JSON.stringify({id: 14})
+          }).then(response => {
+              if (response.ok && response.name !== '') {
+                  return response.json();
+              } else {
+                  throw new Error('что-то пошло не так..');
+              }
+          })
+      } catch (err) {
+          console.log(err);
+      }
+  }
+
+  const correctStudent = async () => {
+      try {
+        const url = 'http://skf_magazine.host1877423.hostland.pro/students/updateStudent.php';
+          const headers = {
+              'Content-Type': 'application/json'
+          }
+          const body = {
+            id: 15,
+              second_name: 'Абросимов'
+          }
+          await fetch(url, {
+              headers,
+              method: 'PATCH',
+              body: JSON.stringify(body)
+          })
+      } catch (err) {
+          console.log(err);
+      }
+  }
+
+</script>
+</body>
+</html>
